@@ -1,23 +1,40 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from 'react'
+import Login from './components/Login.js'
+import TagSelection from './components/TagSelection.js'
+import FileSelection from './components/FileSelection.js'
+import ConfirmationPage from './components/ConfirmationPage.js'
+
 
 function App() {
+
+  const [selectedPage, updatePage] = useState('login')
+  const [authStatus, updateAuthStatus] = useState('false')
+  const [selectedTag, updateSelectedTag] = useState('None')
+  const [selectedFile, updateSelectedFile] = useState('None')
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {selectedPage === 'login' ? (
+        <Login updatePage={updatePage}
+          authStatus={authStatus}
+          updateAuthStatus={updateAuthStatus} />
+      ) : (<></>)}
+      {selectedPage === 'TagSelection' ? (
+        <TagSelection updatePage={updatePage}
+          updateSelectedTag={updateSelectedTag}
+        />
+      ) : (<></>)}
+      {selectedPage === 'FileSelection' ? (
+        <FileSelection updatePage={updatePage}
+          updateSelectedFile={updateSelectedFile}
+        />
+      ) : (<></>)}
+      {selectedPage === 'ConfirmationPage' ? (
+        <ConfirmationPage updatePage={updatePage}
+          selectedFile={selectedFile}
+          selectedTag={selectedTag}
+        />
+      ) : (<></>)}
     </div>
   );
 }
